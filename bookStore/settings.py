@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'kjpkd$^i-@qcj&0g=t&h38=_(&dwk!6k=zk=)+oy*wrewuj^k('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'bookStore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bookZone',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '',
+        'NAME': 'eslamSayed$bookZone',
+        'USER': 'eslamSayed',
+        'PASSWORD': 'LemoLemo14',
+        'HOST': 'eslamSayed.mysql.pythonanywhere-services.com',
         'PORT': '',
     }
 }
@@ -119,9 +119,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/eslamSayed/bookZone/static'
 LOGIN_REDIRECT_URL = 'bookZone/'

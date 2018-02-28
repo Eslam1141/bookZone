@@ -24,7 +24,7 @@ def checkAll(request):
         userName = request.user.username
         context = {'uCategs':categs,'uAuths':auths,'uRBooks':books1,'uWBooks':books2,'userName':userName}
         return context
-    else:    
+    else:
         return False
 
 # Builds Welcome page
@@ -49,7 +49,7 @@ def index(request):
             books.append(book)
         topFollowed = Author.objects.values('name','id').annotate(numFollowers=Count('users')).order_by('-numFollowers')[:5]
         topFavourited = Category.objects.values('title','id').annotate(numFavs=Count('users')).order_by('-numFavs')[:5]
-        
+
         latestPub = Book.objects.order_by('-published_at')[:3]
         for book in latestPub:
             book.pic = book.book_pic.url.replace("bookZone/","/",1)
@@ -120,7 +120,7 @@ def userProfile(request,**kwargs):
                         messages.error(request, 'Please correct the error below.')
                 else:
                     form = PasswordChangeForm(request.user)
-                
+
                 context['form'] = form;
                 return render(request, 'bookZone/userPassEdit.html', context)
     else:
@@ -201,7 +201,7 @@ def follow(request,**kwargs):
         elif kwargs['follow'] == "unfollow":
             author.users.remove(request.user)
         context['authors'] = author
-        
+
         return redirect('/bookZone/authors/'+str(kwargs['author_id']),context)
     else:
         return redirect('/')
@@ -262,13 +262,11 @@ def status(request,**kwargs):
         book =Book.objects.get(pk=kwargs['book_id'])
         if kwargs['status'] == "wishlist":
             book.users_wishlist.add(request.user)
-            book.users_read.remove(request.user)
             book.save()
         elif kwargs['status'] == "nowishlist":
             book.users_wishlist.remove(request.user)
         elif kwargs['status'] == "read":
             book.users_read.add(request.user)
-            book.users_wishlist.remove(request.user)
             book.save()
         elif kwargs['status'] == "noread":
             book.users_read.remove(request.user)
@@ -307,7 +305,7 @@ def search(request):
                 book.pic = book.book_pic.url.replace("bookZone/","/",1)
                 book.isRead = book.users_read.filter(pk=request.user.id)
                 book.isWish = book.users_wishlist.filter(pk=request.user.id)
-            
+
             context['authors'] = resAuthors
             context['categories'] = resCategs
             context['books'] = resBooks
